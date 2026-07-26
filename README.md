@@ -4,88 +4,101 @@
 ![Streamlit](https://img.shields.io/badge/Streamlit-Web%20App-red?logo=streamlit)
 ![Transformers](https://img.shields.io/badge/HuggingFace-Transformers-yellow?logo=huggingface)
 ![PyTorch](https://img.shields.io/badge/PyTorch-Deep%20Learning-orange?logo=pytorch)
+![Pandas](https://img.shields.io/badge/Pandas-Data%20Processing-150458?logo=pandas)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-An AI-powered sentiment analysis web application that classifies customer reviews as **Positive** or **Negative** using a pre-trained Hugging Face Transformer model. The application also supports batch sentiment analysis by uploading CSV files.
+An AI-powered web application that analyzes customer reviews and predicts whether the sentiment is **Positive** or **Negative** using a pre-trained Hugging Face Transformer model. The application also supports **batch sentiment analysis** by uploading CSV files.
 
 ---
 
 # 📌 Project Overview
 
-Customer Feedback Analyzer is a beginner-friendly Natural Language Processing (NLP) project built using **Python**, **Streamlit**, and **Hugging Face Transformers**.
+Customer Feedback Analyzer is a beginner-friendly **Natural Language Processing (NLP)** project developed using **Python**, **Streamlit**, **Hugging Face Transformers**, **PyTorch**, and **Pandas**.
 
-The application enables businesses to quickly understand customer opinions by automatically classifying reviews and displaying prediction confidence.
+The application helps users quickly analyze customer feedback by predicting the sentiment of individual reviews or an entire CSV file while displaying the prediction confidence score.
 
 ---
 
-# 🚀 Features
+# 🌟 Features
 
 ## 🔍 Single Review Analysis
-- Analyze one customer review
+
+- Analyze a single customer review
 - Predict Positive or Negative sentiment
 - Display AI confidence score
+- Simple and interactive Streamlit interface
+
+---
 
 ## 📂 Batch Review Analysis
+
 - Upload CSV files
+- Automatically detect review columns
 - Analyze multiple customer reviews
-- View results in a table
+- Display results in an interactive table
 - Download analyzed CSV
 
-## 🤖 AI Powered
+---
+
+## 🤖 AI-Powered Prediction
+
 - Uses Hugging Face Transformers
 - Powered by PyTorch
-- Real-time sentiment prediction
+- Fast real-time sentiment prediction
+- Confidence score for every prediction
 
 ---
 
 # 🏗️ Project Architecture
 
-```
-                Customer Review
-                       │
-                       ▼
-            Hugging Face Transformer
-                       │
-                       ▼
-          Sentiment Prediction Model
-                       │
-             ┌─────────┴─────────┐
-             ▼                   ▼
-        Positive            Negative
+```text
+               Customer Review / CSV
+                        │
+                        ▼
+                 Streamlit Web App
+                        │
+                        ▼
+             Hugging Face Transformer
+                        │
+                        ▼
+             Sentiment Analysis Model
+                        │
+             ┌──────────┴──────────┐
+             ▼                     ▼
+         Positive             Negative
              │
              ▼
       Confidence Score
              │
              ▼
-      Streamlit Web Interface
+      Display Results / Download CSV
 ```
 
 ---
 
 # 📁 Project Structure
 
-```
+```text
 customer_feedback_analyzer/
 │
-├── app.py                 # Streamlit application
-├── sentiment.py           # AI sentiment analysis logic
+├── app.py
+├── sentiment.py
 ├── requirements.txt
 ├── README.md
+├── .gitignore
 │
 ├── data/
 │   └── sample_reviews.csv
 │
-├── screenshots/
-│   ├── home.png
-│   ├── sample1.png
-│   └── sample2.png
-│
-└── .venv/
+└── screenshots/
+    ├── home.png
+    ├── sample1.png
+    └── sample2.png
 ```
 
 ---
 
-# ⚙️ Technologies Used
+# ⚙️ Tech Stack
 
 | Technology | Purpose |
 |------------|---------|
@@ -99,54 +112,38 @@ customer_feedback_analyzer/
 
 # 🧠 AI Model
 
-This project uses the Hugging Face **Sentiment Analysis Pipeline** based on the DistilBERT model.
+This project uses the **Hugging Face Sentiment Analysis Pipeline** based on the **DistilBERT (SST-2)** pre-trained model.
 
-The model predicts
+The model predicts:
 
-- Positive
-- Negative
+- 😊 Positive
+- 😞 Negative
 
-along with a confidence score.
+along with a confidence score for every prediction.
+
+> **Note:** The current model supports only **binary sentiment classification (Positive/Negative)**. Neutral or mixed opinions are classified into the closest sentiment category.
 
 ---
 
 # 📸 Screenshots
 
-## Home Page
+## 🏠 Home Page
 
 ![Home](screenshots/home.png)
 
 ---
 
-## Single Review Prediction
+## 😊 Single Review Prediction
 
 ![Prediction](screenshots/sample1.png)
 
----
-
-## CSV Batch Analysis
-
-![CSV Analysis](screenshots/sample2.png)
+![Prediction](screenshots/sample2.png)
 
 ---
 
-# 📊 Sample Input
+## 📊 Batch CSV Analysis
 
-| Review |
-|---------|
-| Excellent product |
-| Worst purchase ever |
-| Amazing customer support |
-
----
-
-# 📈 Sample Output
-
-| Review | Sentiment | Confidence |
-|---------|------------|------------|
-| Excellent product | Positive | 99.8% |
-| Worst purchase ever | Negative | 99.5% |
-| Amazing customer support | Positive | 99.9% |
+![CSV Analysis](screenshots/sample3.png)
 
 ---
 
@@ -166,15 +163,13 @@ Create a virtual environment
 python -m venv .venv
 ```
 
-Activate it
-
 ### Windows
 
 ```bash
 .venv\Scripts\activate
 ```
 
-### Linux/macOS
+### Linux / macOS
 
 ```bash
 source .venv/bin/activate
@@ -194,9 +189,9 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-Open your browser
+Open your browser at:
 
-```
+```text
 http://localhost:8501
 ```
 
@@ -204,42 +199,28 @@ http://localhost:8501
 
 # 💡 How It Works
 
-1. Enter a customer review.
-2. Click **Analyze**.
-3. The Hugging Face model predicts the sentiment.
-4. The confidence score is displayed.
-5. Upload a CSV file to analyze multiple reviews at once.
-6. Download the analyzed CSV.
+1. Enter a customer review or upload a CSV file.
+2. The review text is sent to a pre-trained Hugging Face Transformer model.
+3. The model predicts the sentiment.
+4. The application displays:
+   - Sentiment
+   - Confidence Score
+5. For CSV uploads, the results can be downloaded after analysis.
 
 ---
 
-# 📂 CSV Format
+# 📂 Supported CSV Format
 
-Your CSV should contain one of these columns:
+The application automatically looks for one of these columns:
 
-```
-review
-```
+- `review`
+- `Review`
+- `text`
+- `feedback`
+- `comments`
+- `summary`
 
-or
-
-```
-text
-```
-
-or
-
-```
-feedback
-```
-
-or
-
-```
-comments
-```
-
-Example
+Example:
 
 | review |
 |----------|
@@ -249,28 +230,41 @@ Example
 
 ---
 
-# 🎯 Learning Outcomes
+# 📄 Sample Dataset
 
-This project demonstrates practical experience with:
+A sample CSV file (`sample_reviews.csv`) is included in the repository for testing the batch sentiment analysis feature.
 
+---
+
+# ⚠️ Limitations
+
+- Supports only **Positive** and **Negative** sentiment.
+- Neutral or mixed reviews are classified into the closest sentiment category.
+- Predictions depend on the pre-trained Hugging Face model.
+
+---
+
+# 💼 Skills Demonstrated
+
+- Python Programming
 - Natural Language Processing (NLP)
-- Hugging Face Transformers
 - Streamlit Web Development
+- Hugging Face Transformers
 - PyTorch Inference
 - CSV Processing with Pandas
-- Python Programming
 - AI Model Integration
+- Machine Learning Inference
 
 ---
 
 # 🔮 Future Improvements
 
-- Neutral sentiment detection
-- Emotion analysis
-- Sentiment charts
-- Word cloud visualization
-- Search and filter reviews
-- Multi-language support
+- Support Positive, Neutral, and Negative sentiment
+- Fine-tune a custom transformer model
+- Sentiment analytics dashboard
+- Interactive charts and visualizations
+- Search and filter analyzed reviews
+- Multi-language sentiment analysis
 - Deploy on Streamlit Community Cloud
 
 ---
@@ -279,19 +273,19 @@ This project demonstrates practical experience with:
 
 **Mohamed Asif**
 
-Cybersecurity Student | AI & Python Enthusiast
+Cybersecurity Student | AI Enthusiast | Python Developer
 
-- GitHub: https://github.com/asif-visionary
-- LinkedIn: https://www.linkedin.com/in/mohamed-asif-a-852830326/
+- **GitHub:** https://github.com/asif-visionary
+- **LinkedIn:** https://www.linkedin.com/in/mohamed-asif-a-852830326/
 
 ---
 
 # ⭐ Support
 
-If you found this project useful, consider giving it a ⭐ on GitHub.
+If you found this project useful, please consider giving it a ⭐ on GitHub.
 
 ---
 
 # 📜 License
 
-This project is licensed under the MIT License.
+This project is licensed under the **MIT License**.

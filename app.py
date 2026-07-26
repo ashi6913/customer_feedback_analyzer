@@ -24,16 +24,12 @@ if st.button("Analyze"):
 
         st.subheader("Result")
 
-        if label.lower().startswith("pos"):
-            st.markdown(
-                f"<div style='background-color:#e6f4ea; color:#1f7a1f; padding:12px; border-radius:8px;'>😊 Positive sentiment detected</div>",
-                unsafe_allow_html=True,
-            )
+        if label.lower() == "positive":
+            st.success("😊 Positive sentiment detected")
+        elif label.lower() == "neutral":
+            st.info("😐 Neutral sentiment detected")
         else:
-            st.markdown(
-                f"<div style='background-color:#fdecea; color:#b42318; padding:12px; border-radius:8px;'>😞 Negative sentiment detected</div>",
-                unsafe_allow_html=True,
-            )
+            st.error("😞 Negative sentiment detected")
 
         st.markdown(f"**Confidence:** {confidence}%")
     else:
@@ -52,47 +48,88 @@ if uploaded_file is not None:
         if df.empty:
             st.info("The uploaded file is empty.")
         else:
+            normalized_columns = {col.lower().strip(): col for col in df.columns}
+            preferred_candidates = [
+                "review",
+                "review_text",
+                "reviewtext",
+                "text",
+                "feedback",
+                "comments",
+                "comment",
+                "summary",
+            ]
+
             review_column = None
-            for candidate in ["review", "text", "feedback", "comments"]:
-                if candidate in df.columns:
-                    review_column = candidate
+            for candidate in preferred_candidates:
+                if candidate in normalized_columns:
+                    review_column = normalized_columns[candidate]
                     break
 
             if review_column is None:
                 st.warning(
-                    "Could not find a review column. Please include one named 'review', 'text', 'feedback', or 'comments'."
+                    "Could not find a recognizable text column automatically. Please select one from the dropdown below."
                 )
-            else:
+                review_column = st.selectbox("Select the text column to analyze", df.columns)
+
+            if review_column is not None:
                 reviews = df[review_column].fillna("").astype(str).tolist()
                 non_empty_indices = [index for index, review in enumerate(reviews) if review.strip()]
                 non_empty_reviews = [reviews[index] for index in non_empty_indices]
 
                 if not non_empty_reviews:
-                    st.info("The selected review column does not contain any non-empty values.")
+                    st.info("The selected text column does not contain any non-empty values.")
                 else:
-                    with st.spinner("Analyzing all reviews..."):
-                        predictions = analyze_sentiment_batch(non_empty_reviews)
+                    st.write(f"Total reviews: {len(non_empty_reviews)}")
+
+                    batch_size = 200
+                    predictions = []
+                    progress_text = st.empty()
+                    progress_bar = st.progress(0)
+
+                    for start in range(0, len(non_empty_reviews), batch_size):
+                        batch = non_empty_reviews[start : start + batch_size]
+                        batch_number = start // batch_size + 1
+                        total_batches = (len(non_empty_reviews) + batch_size - 1) // batch_size
+
+                        progress_text.text(
+                            f"Analyzing batch {batch_number} of {total_batches} ({min(start + batch_size, len(non_empty_reviews))}/{len(non_empty_reviews)} reviews)"
+                        )
+
+                        with st.spinner("Analyzing reviews..."):
+                            batch_predictions = analyze_sentiment_batch(batch)
+
+                        predictions.extend(batch_predictions)
+                        progress_value = min((start + len(batch)) / len(non_empty_reviews), 1.0)
+                        progress_bar.progress(progress_value)
+
+                    progress_text.text("Analysis complete")
+                    progress_bar.progress(1.0)
 
                     df["sentiment"] = ""
                     df["confidence"] = ""
-                    df.loc[non_empty_indices, "sentiment"] = [item["label"] for item in predictions]
-                    df.loc[non_empty_indices, "confidence"] = [f"{item['confidence']}%" for item in predictions]
+
+                    for row_index, prediction in zip(non_empty_indices, predictions):
+                        df.at[row_index, "sentiment"] = prediction["label"]
+                        df.at[row_index, "confidence"] = f"{prediction['confidence']}%"
 
                     st.dataframe(df)
 
-                    positive_count = int((df["sentiment"].str.lower().str.startswith("pos")).sum())
-                    negative_count = int((df["sentiment"].str.lower().str.startswith("neg")).sum())
+                    positive_count = int((df["sentiment"].str.lower() == "positive").sum())
+                    neutral_count = int((df["sentiment"].str.lower() == "neutral").sum())
+                    negative_count = int((df["sentiment"].str.lower() == "negative").sum())
                     total_reviews = len(df)
 
-                    col1, col2, col3 = st.columns(3)
+                    col1, col2, col3, col4 = st.columns(4)
                     col1.metric("Total reviews", total_reviews)
                     col2.metric("Positive reviews", positive_count)
-                    col3.metric("Negative reviews", negative_count)
+                    col3.metric("Neutral reviews", neutral_count)
+                    col4.metric("Negative reviews", negative_count)
 
                     summary_df = pd.DataFrame(
                         {
-                            "Sentiment": ["Positive", "Negative"],
-                            "Count": [positive_count, negative_count],
+                            "Sentiment": ["Positive", "Neutral", "Negative"],
+                            "Count": [positive_count, neutral_count, negative_count],
                         }
                     )
                     st.bar_chart(summary_df.set_index("Sentiment"))
