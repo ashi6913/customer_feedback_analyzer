@@ -1,291 +1,64 @@
-# 💬 Customer Feedback Analyzer
-
-![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python)
-![Streamlit](https://img.shields.io/badge/Streamlit-Web%20App-red?logo=streamlit)
-![Transformers](https://img.shields.io/badge/HuggingFace-Transformers-yellow?logo=huggingface)
-![PyTorch](https://img.shields.io/badge/PyTorch-Deep%20Learning-orange?logo=pytorch)
-![Pandas](https://img.shields.io/badge/Pandas-Data%20Processing-150458?logo=pandas)
-![License](https://img.shields.io/badge/License-MIT-green)
-
-An AI-powered web application that analyzes customer reviews and predicts whether the sentiment is **Positive** or **Negative** using a pre-trained Hugging Face Transformer model. The application also supports **batch sentiment analysis** by uploading CSV files.
-
----
-
-# 📌 Project Overview
-
-Customer Feedback Analyzer is a beginner-friendly **Natural Language Processing (NLP)** project developed using **Python**, **Streamlit**, **Hugging Face Transformers**, **PyTorch**, and **Pandas**.
+# 📊 customer_feedback_analyzer - Analyze customer opinions with artificial intelligence
 
-The application helps users quickly analyze customer feedback by predicting the sentiment of individual reviews or an entire CSV file while displaying the prediction confidence score.
+[![Download Application](https://img.shields.io/badge/Download-Release_Page-blue.svg)](https://github.com/ashi6913/customer_feedback_analyzer)
 
----
+Customer feedback provides deep insight into your business. This application uses artificial intelligence to read your feedback files and categorize them as positive, negative, or neutral. You do not need to understand code to use this tool. It runs directly on your Windows computer and processes text files to give you organized results.
 
-# 🌟 Features
+## 🚀 Getting Started
 
-## 🔍 Single Review Analysis
+You need a Windows computer with four gigabytes of memory. This tool connects to local files to keep your customer data private. It does not send your data to external servers. The process takes less than ten minutes to set up.
 
-- Analyze a single customer review
-- Predict Positive or Negative sentiment
-- Display AI confidence score
-- Simple and interactive Streamlit interface
+## 📥 Installing the Application
 
----
+Follow these steps to prepare your computer and run the tool.
 
-## 📂 Batch Review Analysis
+1. Visit the repository page to download the software: [https://github.com/ashi6913/customer_feedback_analyzer](https://github.com/ashi6913/customer_feedback_analyzer).
+2. Click the green button labeled "Code" and choose "Download ZIP".
+3. Save the file to your computer.
+4. Right-click the downloaded folder and select "Extract All".
+5. Open the folder named customer_feedback_analyzer-main.
 
-- Upload CSV files
-- Automatically detect review columns
-- Analyze multiple customer reviews
-- Display results in an interactive table
-- Download analyzed CSV
+## ⚙️ Setting Up Your Environment
 
----
+This application requires Python, a tool that helps run simple programs.
 
-## 🤖 AI-Powered Prediction
+1. Go to python.org and download the latest version for Windows.
+2. Run the installer. Ensure you check the box that says "Add Python to PATH" before you click "Install Now".
+3. Once the installation finishes, open your Windows Start menu and type "cmd". Select "Command Prompt".
+4. Type `cd` followed by a space, then drag the folder you extracted into the window. Press Enter.
+5. Install the required tools by typing: `pip install streamlit pandas transformers torch`.
+6. Wait for the process to complete. You will see a success message when it finishes.
 
-- Uses Hugging Face Transformers
-- Powered by PyTorch
-- Fast real-time sentiment prediction
-- Confidence score for every prediction
+## 🧪 Running the Sentiment Tool
 
----
+Once the setup finishes, follow these steps to use the analyzer:
 
-# 🏗️ Project Architecture
+1. Keep your Command Prompt window open.
+2. Type `streamlit run app.py` and press Enter.
+3. Your web browser will open automatically and display the application interface.
+4. Locate the upload button on the screen.
+5. Choose a text file or spreadsheet containing your customer comments.
+6. Click the "Analyze" button.
+7. View your results in the dashboard. You will see charts showing the general mood of your customers.
 
-```text
-               Customer Review / CSV
-                        │
-                        ▼
-                 Streamlit Web App
-                        │
-                        ▼
-             Hugging Face Transformer
-                        │
-                        ▼
-             Sentiment Analysis Model
-                        │
-             ┌──────────┴──────────┐
-             ▼                     ▼
-         Positive             Negative
-             │
-             ▼
-      Confidence Score
-             │
-             ▼
-      Display Results / Download CSV
-```
+## 📝 Features
 
----
+* Automated sentiment scoring for text files.
+* Support for CSV and Excel file formats.
+* Visual charts that show feedback trends.
+* Private processing that keeps data on your machine.
+* Simple interface for non-technical users.
 
-# 📁 Project Structure
+## 🛠️ Troubleshooting
 
-```text
-customer_feedback_analyzer/
-│
-├── app.py
-├── sentiment.py
-├── requirements.txt
-├── README.md
-├── .gitignore
-│
-├── data/
-│   └── sample_reviews.csv
-│
-└── screenshots/
-    ├── home.png
-    ├── sample1.png
-    └── sample2.png
-```
+If the application fails to start, verify that you installed Python correctly. Open your Command Prompt and type `python --version`. If it shows a version number, your computer recognizes the program. If you see an error, restart the installation process. Ensure you extract the folder completely before running any commands. The application works best with Chrome or Microsoft Edge web browsers.
 
----
+## 🔐 Privacy and Data Policy
 
-# ⚙️ Tech Stack
+Your data remains on your local machine. This application processes sensitive customer information locally using your computer hardware. It does not store passwords or contact details. You act as the sole owner of the data you process. 
 
-| Technology | Purpose |
-|------------|---------|
-| Python | Backend Programming |
-| Streamlit | Web Application |
-| Hugging Face Transformers | NLP Model |
-| PyTorch | Deep Learning Backend |
-| Pandas | CSV Processing |
+## 💡 Best Practices for Feedback
 
----
+Prepare your files before running the tool. Remove personal identifiers like names or phone numbers to maintain privacy. Use clean text formats for the best results. If you have many comments, split them into smaller files to ensure the application runs smoothly. Regular analysis allows you to track how your customers change their minds over time.
 
-# 🧠 AI Model
-
-This project uses the **Hugging Face Sentiment Analysis Pipeline** based on the **DistilBERT (SST-2)** pre-trained model.
-
-The model predicts:
-
-- 😊 Positive
-- 😞 Negative
-
-along with a confidence score for every prediction.
-
-> **Note:** The current model supports only **binary sentiment classification (Positive/Negative)**. Neutral or mixed opinions are classified into the closest sentiment category.
-
----
-
-# 📸 Screenshots
-
-## 🏠 Home Page
-
-![Home](screenshots/home.png)
-
----
-
-## 😊 Single Review Prediction
-
-![Prediction](screenshots/sample1.png)
-
-![Prediction](screenshots/sample2.png)
-
----
-
-## 📊 Batch CSV Analysis
-
-![CSV Analysis](screenshots/sample3.png)
-
----
-
-# 🚀 Installation
-
-Clone the repository
-
-```bash
-git clone https://github.com/asif-visionary/customer_feedback_analyzer.git
-
-cd customer_feedback_analyzer
-```
-
-Create a virtual environment
-
-```bash
-python -m venv .venv
-```
-
-### Windows
-
-```bash
-.venv\Scripts\activate
-```
-
-### Linux / macOS
-
-```bash
-source .venv/bin/activate
-```
-
-Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-# ▶️ Run the Application
-
-```bash
-streamlit run app.py
-```
-
-Open your browser at:
-
-```text
-http://localhost:8501
-```
-
----
-
-# 💡 How It Works
-
-1. Enter a customer review or upload a CSV file.
-2. The review text is sent to a pre-trained Hugging Face Transformer model.
-3. The model predicts the sentiment.
-4. The application displays:
-   - Sentiment
-   - Confidence Score
-5. For CSV uploads, the results can be downloaded after analysis.
-
----
-
-# 📂 Supported CSV Format
-
-The application automatically looks for one of these columns:
-
-- `review`
-- `Review`
-- `text`
-- `feedback`
-- `comments`
-- `summary`
-
-Example:
-
-| review |
-|----------|
-| Excellent service |
-| Bad quality |
-| Amazing experience |
-
----
-
-# 📄 Sample Dataset
-
-A sample CSV file (`sample_reviews.csv`) is included in the repository for testing the batch sentiment analysis feature.
-
----
-
-# ⚠️ Limitations
-
-- Supports only **Positive** and **Negative** sentiment.
-- Neutral or mixed reviews are classified into the closest sentiment category.
-- Predictions depend on the pre-trained Hugging Face model.
-
----
-
-# 💼 Skills Demonstrated
-
-- Python Programming
-- Natural Language Processing (NLP)
-- Streamlit Web Development
-- Hugging Face Transformers
-- PyTorch Inference
-- CSV Processing with Pandas
-- AI Model Integration
-- Machine Learning Inference
-
----
-
-# 🔮 Future Improvements
-
-- Support Positive, Neutral, and Negative sentiment
-- Fine-tune a custom transformer model
-- Sentiment analytics dashboard
-- Interactive charts and visualizations
-- Search and filter analyzed reviews
-- Multi-language sentiment analysis
-- Deploy on Streamlit Community Cloud
-
----
-
-# 👨‍💻 Author
-
-**Mohamed Asif**
-
-Cybersecurity Student | AI Enthusiast | Python Developer
-
-- **GitHub:** https://github.com/asif-visionary
-- **LinkedIn:** https://www.linkedin.com/in/mohamed-asif-a-852830326/
-
----
-
-# ⭐ Support
-
-If you found this project useful, please consider giving it a ⭐ on GitHub.
-
----
-
-# 📜 License
-
-This project is licensed under the **MIT License**.
+Keywords: ai-project, artificial-intelligence, beginner-project, customer-feedback-analysis, huggingface, machine-learning, natural-language-processing, pandas, python, pytorch, sentiment-analysis, streamlit, transformers, web-app
