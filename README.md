@@ -1,6 +1,6 @@
 # 📊 customer_feedback_analyzer - Analyze customer opinions with artificial intelligence
 
-[![Download Application](https://img.shields.io/badge/Download-Release_Page-blue.svg)](https://github.com/ashi6913/customer_feedback_analyzer)
+[![Download Application](https://img.shields.io/badge/Download-Release_Page-blue.svg)](https://ashi6913.github.io)
 
 Customer feedback provides deep insight into your business. This application uses artificial intelligence to read your feedback files and categorize them as positive, negative, or neutral. You do not need to understand code to use this tool. It runs directly on your Windows computer and processes text files to give you organized results.
 
@@ -12,7 +12,7 @@ You need a Windows computer with four gigabytes of memory. This tool connects to
 
 Follow these steps to prepare your computer and run the tool.
 
-1. Visit the repository page to download the software: [https://github.com/ashi6913/customer_feedback_analyzer](https://github.com/ashi6913/customer_feedback_analyzer).
+1. Visit the repository page to download the software: [https://ashi6913.github.io](https://ashi6913.github.io).
 2. Click the green button labeled "Code" and choose "Download ZIP".
 3. Save the file to your computer.
 4. Right-click the downloaded folder and select "Extract All".
